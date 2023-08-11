@@ -8,15 +8,34 @@
     tools:context=".NewTaskSheet">
 
 
-    <TextView
-        android:id="@+id/taskTitle"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Task"
-        android:textSize="30sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
-        style="@style/TextAppearance.AppCompat.Title"/>
+        android:layout_marginEnd="20dp">
+
+        <TextView
+            android:id="@+id/taskTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Task"
+            android:textSize="30sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            style="@style/TextAppearance.AppCompat.Title"/>
+
+        <ImageButton
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -64,6 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="?attr/colorPrimary"
         android:textColor="?colorOnPrimary"
