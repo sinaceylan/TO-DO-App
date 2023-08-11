@@ -29,6 +29,7 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
             val editable = Editable.Factory.getInstance()
             binding.name.text = editable.newEditable(taskItem!!.name)
             binding.desc.text = editable.newEditable(taskItem!!.desc)
+            binding.deleteButton.visibility = View.VISIBLE
 
             if (taskItem!!.dueTime != null) {
                 dueTime = taskItem!!.dueTime!!
@@ -36,6 +37,7 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
             }
         } else {
             binding.taskTitle.text = "New Task"
+            binding.deleteButton.visibility = View.GONE
         }
 
         taskViewModel = ViewModelProvider(activity).get(TaskViewModel::class.java)
@@ -46,6 +48,17 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
         binding.timePickerButton.setOnClickListener {
             openTimePicker()
         }
+
+        binding.deleteButton.setOnClickListener {
+            deleteAction()
+        }
+    }
+
+    private fun deleteAction() {
+        taskItem?.let {
+            taskViewModel.deleteTaskItem(it)
+        }
+        dismiss()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
