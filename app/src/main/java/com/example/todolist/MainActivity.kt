@@ -1,11 +1,19 @@
 package com.example.todolist
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.view.TaskViewModel
 import com.example.todolist.view.TaskViewModelFactory
@@ -40,6 +48,58 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
                 adapter = TaskItemAdapter(it, mainActivity)
             }
         }
+
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val taskItem = (binding.todoListRecyclerView.adapter as TaskItemAdapter).getItemAt(position)
+                taskViewModel.deleteTaskItem(taskItem)
+            }
+
+            override fun onChildDraw(
+                c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+                dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+                val icon = ContextCompat.getDrawable(baseContext, R.drawable.ic_baseline_delete_24)
+                val intrinsicWidth = icon!!.intrinsicWidth
+                val intrinsicHeight = icon.intrinsicHeight
+                val color = ContextCompat.getColor(baseContext, R.color.red)
+
+                val background = RectF(
+                    itemView.right.toFloat() + dX,
+                    itemView.top.toFloat(),
+                    itemView.right.toFloat(),
+                    itemView.bottom.toFloat()
+                )
+
+                val paint = Paint()
+                paint.color = color
+                c.drawRoundRect(background, 0f, 0f, paint)
+
+                val iconTop = itemView.top + (itemView.height - intrinsicHeight) / 2
+                val iconMargin = (itemView.height - intrinsicHeight) / 2
+                val iconLeft = itemView.right - iconMargin - intrinsicWidth
+                val iconRight = itemView.right - iconMargin
+                val iconBottom = iconTop + intrinsicHeight
+
+                icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                icon.draw(c)
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.todoListRecyclerView)
 
     }
 
