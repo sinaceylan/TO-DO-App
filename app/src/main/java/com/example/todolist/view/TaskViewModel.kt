@@ -1,11 +1,9 @@
 package com.example.todolist.view
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todolist.TaskItem
-import com.example.todolist.TaskRepository
+import com.example.todolist.repository.TaskRepository
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.util.UUID
@@ -32,7 +30,6 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun setCompleted(taskItem: TaskItem) {
         viewModelScope.launch {
             if (taskItem.completedDate == null) {

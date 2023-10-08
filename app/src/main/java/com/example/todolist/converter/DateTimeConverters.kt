@@ -1,14 +1,11 @@
 package com.example.todolist.converter
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
 import java.time.LocalDate
 import java.time.LocalTime
 
 object DateTimeConverters {
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @TypeConverter
     @JvmStatic
     fun toLocalDate(value: String?): LocalDate? {
@@ -23,7 +20,6 @@ object DateTimeConverters {
         return date?.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @TypeConverter
     @JvmStatic
     fun toLocalTime(value: String?): LocalTime? {

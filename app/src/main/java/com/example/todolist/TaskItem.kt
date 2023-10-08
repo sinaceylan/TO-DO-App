@@ -1,6 +1,8 @@
 package com.example.todolist
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,16 +11,21 @@ import java.time.LocalTime
 import java.util.UUID
 
 @Entity(tableName = "task_table")
-class TaskItem (
+class TaskItem(
     var name: String,
     var desc: String,
     var dueTime: LocalTime?,
     var completedDate: LocalDate?,
+    var dueDate: LocalDate?,
     @PrimaryKey var id: UUID = UUID.randomUUID()
-){
+) {
 
     fun isCompleted(): Boolean {
         return completedDate != null
+    }
+
+    fun isOverdue(): Boolean {
+        return dueDate != null && dueDate!!.isBefore(LocalDate.now())
     }
 
     fun imageResource(): Int = if (isCompleted()) R.drawable.checked else R.drawable.unchecked
