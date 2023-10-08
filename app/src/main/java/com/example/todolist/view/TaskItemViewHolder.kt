@@ -2,6 +2,7 @@ package com.example.todolist.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.TaskItem
@@ -17,6 +18,8 @@ class TaskItemViewHolder(
 
 ) : RecyclerView.ViewHolder(binding.root) {
     private val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
+    private val formattedDate = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
 
     fun bindTaskItem(taskItem: TaskItem) {
         binding.name.text = taskItem.name
@@ -24,6 +27,20 @@ class TaskItemViewHolder(
         if (taskItem.isCompleted()) {
             binding.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             binding.dueTime.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            binding.dueDate.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+        }
+
+        if (taskItem.isOverdue()) {
+            binding.dueDate.text = "Delayed"
+            binding.dueDate.setTextColor(Color.RED)
+        } else {
+            taskItem.dueDate?.let {
+                binding.dueDate.text = formattedDate.format(it)
+                binding.dueDate.setTextColor(Color.BLACK)
+            } ?: run {
+                binding.dueDate.text = "Empty"
+                binding.dueDate.setTextColor(Color.GRAY)
+            }
         }
 
         binding.completeButton.setImageResource(taskItem.imageResource())
@@ -40,7 +57,8 @@ class TaskItemViewHolder(
         if (taskItem.dueTime != null) {
             binding.dueTime.text = timeFormat.format(taskItem.dueTime)
         } else {
-            binding.dueTime.text = ""
+            binding.dueTime.text = "Empty"
+            binding.dueTime.setTextColor(Color.GRAY)
         }
 
     }

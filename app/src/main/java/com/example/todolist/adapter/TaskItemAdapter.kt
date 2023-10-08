@@ -1,8 +1,10 @@
-package com.example.todolist
+package com.example.todolist.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.TaskItem
+import com.example.todolist.TaskItemClickListener
 import com.example.todolist.databinding.TaskItemCellBinding
 import com.example.todolist.view.TaskItemViewHolder
 
