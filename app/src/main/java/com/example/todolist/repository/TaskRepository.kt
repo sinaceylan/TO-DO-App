@@ -1,12 +1,13 @@
-package com.example.todolist
+package com.example.todolist.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.example.todolist.room.DatabaseProvider
+import com.example.todolist.TaskItem
+import com.example.todolist.room.TaskDatabase
 import java.util.*
 
 class TaskRepository(context: Context) {
-    private val db = DatabaseProvider.getInstance(context).database
+    private val db = TaskDatabase.getInstance(context)
     private val taskItemDao = db.taskDao()
 
     val allTasks: LiveData<List<TaskItem>> = taskItemDao.getAllTasks()
