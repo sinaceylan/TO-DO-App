@@ -4,6 +4,7 @@
 *.aar
 *.ap_
 *.aab
+*.lock
 
 # Directories
 .gradle/
