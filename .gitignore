@@ -1,0 +1,29 @@
+# Built application files
+*.iml
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Directories
+.gradle/
+.idea/
+app/normal/
+app/dev/
+build/
+captures/
+.externalNativeBuild/
+circularIndicator/build/
+
+# Files
+*.png
+*.DS_Store
+local.properties
+Gemfile
+Gemfile.lock
+
+# fastlane
+fastlane/metadata/
+fastlane/README.md
+fastlane/report.xml
+

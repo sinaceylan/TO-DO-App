@@ -21,6 +21,11 @@ import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.repository.TaskRepository
 import com.example.todolist.view.TaskViewModel
 import com.example.todolist.view.TaskViewModelFactory
+import com.google.android.material.tabs.TabLayout
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Calendar
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(), TaskItemClickListener {
     private lateinit var taskViewModel: TaskViewModel
@@ -47,6 +52,7 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
         }
 
         setRecyclerView()
+        setupTabs()
     }
 
     // region RecyclerView
@@ -164,6 +170,42 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
 
     private fun areNotificationsEnabled(): Boolean {
         return NotificationManagerCompat.from(this).areNotificationsEnabled()
+    }
+
+    // endregion
+
+    // region Tab Layout
+
+    private fun setupTabs() {
+        val days = arrayOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+
+        val calendar = Calendar.getInstance()
+
+        val sortedDaysWithDates = Array(7) {
+            val dayIndex = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7
+            val day = days[dayIndex]
+            val date = dateFormat.format(calendar.time)
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+            "$day ($date)"
+        }
+
+        for (dayWithDate in sortedDaysWithDates) {
+            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(dayWithDate))
+        }
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.let {
+                    //
+                    //
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
     }
 
     // endregion
