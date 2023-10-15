@@ -1,6 +1,7 @@
 *.iml
 *.iws
 *.ipr
+*.lock
 .gradle/
 .idea/
 /local.properties
