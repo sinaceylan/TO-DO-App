@@ -82,3 +82,4 @@ Below are the steps to set up Fastlane and Screengrab for this project.
    ```bash
    bundle exec fastlane capture_screenshots
    ```
+---
