@@ -77,6 +77,7 @@ Below are the steps to set up Fastlane and Screengrab for this project.
     ```bash
     bundle exec fastlane
     ```
+    
 15. **Or, You Can Directly Use:**
    ```bash
    bundle exec fastlane capture_screenshots
