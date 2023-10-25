@@ -73,33 +73,22 @@ Below are the steps to set up Fastlane and Screengrab for this project.
     vim  ~/.zshrc
     ```
 
-14. **After Following These Steps, Reset the Terminal or Type:**  
-    ```bash
-    fastlane init
-    ```
-
-## Screengrab Installation
-
-### Steps:
-
-1. **Install the Gem and Add Necessary Dependencies**  
-    ```bash
-    gem install fastlane
-    ```
-
-2. **Since We Will Use Some APKs During the Screengrab Process, Create Some Files to Access These APKs**  
+14. **Since We Will Use Some APKs During the Screengrab Process, Create Some Files to Access These APKs**  
     ```bash
     ./gradlew assembleDebug assembleAndroidTest
     ```
 
-3. **If You Get a Java Error, Most Likely Java is Not Installed on Your Computer. You Can Easily Install Java 11 With:**  
+15. **If You Get a Java Error, Most Likely Java is Not Installed on Your Computer. You Can Easily Install Java 11 With:**  
     ```bash
     brew install openjdk11
     ```
 
-4. **Then, You Can Start Taking Screenshots With:**  
+16. **Then, You Can Start Taking Screenshots With:**  
     ```bash
-    fastlane screengrab
+    bundle exec fastlane
     ```
-
+17. **Or, You Can Directly Use:**
+   ```bash
+   bundle exec fastlane capture_screenshots
+   ```
 ---
