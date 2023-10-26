@@ -14,7 +14,7 @@ Below are the steps to set up Fastlane and Screengrab for this project.
 
 2. **Check for Brew**  
     ```bash
-    brew —version
+    brew --version
     ```
 
 3. **Install Brew** (If not installed)  
