@@ -53,32 +53,37 @@ Below are the steps to set up Fastlane and Screengrab for this project.
     which ruby
     ```
 
-10. **Install Bundler and Create a `./Gemfile` in the Root Directory**  
+10. **Install Fastlane**  
+    ```bash
+    gem install fastlane -NV
+    ```
+
+11. **Install Bundler and Create a `./Gemfile` in the Root Directory**  
     ```bash
     gem install bundler
     ```
 
-11. **If You Need to Add Some PATHs (e.g., export PATH="$HOME/.fastlane/bin:$PATH"), Use:**  
+12. **If You Need to Add Some PATHs (e.g., export PATH="$HOME/.fastlane/bin:$PATH"), Use:**  
     ```bash
     vim  ~/.zshrc
     ```
 
-12. **Since We Will Use Some APKs During the Screengrab Process, Create Some Files to Access These APKs**  
+13. **Since We Will Use Some APKs During the Screengrab Process, Create Some Files to Access These APKs**  
     ```bash
     ./gradlew assembleDebug assembleAndroidTest
     ```
 
-13. **If You Get a Java Error, Most Likely Java is Not Installed on Your Computer. You Can Easily Install Java 11 With:**  
+14. **If You Get a Java Error, Most Likely Java is Not Installed on Your Computer. You Can Easily Install Java 11 With:**  
     ```bash
     brew install openjdk11
     ```
 
-14. **Then, You Can Start Taking Screenshots With:**  
+15. **Then, You Can Start Taking Screenshots With:**  
     ```bash
     bundle exec fastlane
     ```
     
-15. **Or, You Can Directly Use:**
+16. **Or, You Can Directly Use:**
        ```bash
        bundle exec fastlane capture_screenshots
        ```
