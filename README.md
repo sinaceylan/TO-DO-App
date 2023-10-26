@@ -1,8 +1,12 @@
 # TO-DO-App
 
-Below are the steps to set up Fastlane and Screengrab for this project.
 
-## Fastlane Installation
+## Take screenshots for the store
+Things to do before proceeding with these steps:
+1. **Un-commented Fastlane permissions in Android Manifest**
+2. **Make sure you logged in**
+3. **Make sure you are connected to the network**
+4. **Make sure you have paired boat**
 
 ### Steps:
 
