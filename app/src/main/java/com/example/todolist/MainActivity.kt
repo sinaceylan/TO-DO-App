@@ -1,5 +1,6 @@
 package com.example.todolist
 
+import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -17,10 +18,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.adapter.TaskItemAdapter
+import com.example.todolist.authentication.SignInActivity
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.repository.TaskRepository
 import com.example.todolist.view.TaskViewModel
 import com.example.todolist.view.TaskViewModelFactory
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), TaskItemClickListener {
     private lateinit var taskViewModel: TaskViewModel
@@ -46,7 +49,26 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
             NewTaskSheet(null).show(supportFragmentManager, "newTaskTag")
         }
 
+        binding.logoutButton.setOnClickListener {
+            showLogoutDialog()
+        }
+
         setRecyclerView()
+    }
+
+    private fun showLogoutDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setPositiveButton("Yes") { _, _ ->
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, SignInActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     // region RecyclerView
@@ -167,5 +189,4 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
     }
 
     // endregion
-
 }
